@@ -2,6 +2,7 @@ all:
 	git merge master
 	make doit
 
+
 doit:
 	docker build -t kgyrtkirk/htk-jenkins htk-jenkins
 	kubectl delete deployment.apps/jenkins
