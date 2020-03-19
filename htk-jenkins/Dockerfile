@@ -7,6 +7,7 @@ RUN /usr/local/bin/install-plugins.sh parallel-test-executor
 RUN /usr/local/bin/install-plugins.sh junit-realtime-test-reporter blueocean
 RUN /usr/local/bin/install-plugins.sh build-timeout config-file-provider rebuild junit copyartifact 
 
+USER root
 ADD jenkins_home /var/jenkins_home
 RUN chown -R 1000:1000 /var/jenkins_home
 
