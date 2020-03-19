@@ -14,6 +14,7 @@ spec:
       labels:
         app: htk-jenkins
     spec:
+      revisionHistoryLimit: 1
       containers:
       - name: master
         image: kgyrtkirk/htk-jenkins
