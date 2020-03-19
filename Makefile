@@ -7,4 +7,5 @@ doit:
 	kubectl delete deployment.apps/jenkins
 	kubectl apply -f k8s/jenkins-deployment.yaml
 	kubectl apply -f k8s/jenkins-service.yaml
+	kubectl apply -f k8s/service-account.yaml
 	kubectl get all
