@@ -17,6 +17,7 @@ spec:
       containers:
       - name: master
         image: kgyrtkirk/htk-jenkins
+        imagePullPolicy: Never
         resources:
           requests:
             cpu: 1000m
