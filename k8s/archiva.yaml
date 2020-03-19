@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: htk-archiva
   labels:
-    app: archiva
+    app: htk-archiva
 spec:
   selector:
     matchLabels:
-      app: archiva
+      app: htk-archiva
   replicas: 1
   template:
     metadata:
       labels:
-        app: archiva
+        app: htk-archiva
     spec:
       initContainers:
         - name: init-ownership
