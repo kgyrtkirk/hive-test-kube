@@ -6,8 +6,9 @@ RUN /usr/local/bin/install-plugins.sh maven-plugin:3.4
 RUN /usr/local/bin/install-plugins.sh parallel-test-executor
 RUN /usr/local/bin/install-plugins.sh junit-realtime-test-reporter blueocean
 RUN /usr/local/bin/install-plugins.sh build-timeout config-file-provider rebuild junit copyartifact 
-
+RUN /usr/local/bin/install-plugins.sh metrics
 #USER root
+# FIXME: this should be jenkins!
 USER root
 ADD jenkins_home /var/jenkins_home
 RUN chown -R jenkins /var/jenkins_home/
