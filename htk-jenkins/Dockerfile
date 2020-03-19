@@ -9,6 +9,6 @@ RUN /usr/local/bin/install-plugins.sh build-timeout config-file-provider rebuild
 
 USER root
 ADD jenkins_home /var/jenkins_home
-RUN chown -R jenkins /var/jenkins_home
+RUN chown -R jenkins /var/jenkins_home/
 RUN ls -l /var/jenkins_home
 USER jenkins
