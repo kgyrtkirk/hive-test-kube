@@ -22,7 +22,7 @@ metadata:
     app: htk-archiva
 spec:
   type: LoadBalancer
-    selector:
+  selector:
     app: htk-archiva
   ports:
     - name: http
