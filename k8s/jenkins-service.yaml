@@ -6,8 +6,8 @@ metadata:
     app: htk-jenkins
 spec:
   #type: ClusterIP
-  #type: NodePort 
-  type: LoadBalancer
+  type: NodePort 
+  #type: LoadBalancer
   ports:
   - port: 8080
     targetPort: 8080
