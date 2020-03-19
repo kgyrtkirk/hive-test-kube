@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: htb-archiva
+  labels:
+    app: archiva
+spec:
+  selector:
+    matchLabels:
+      app: archiva
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: archiva
+    spec:
+      initContainers:
+        - name: init-ownership
+          image: busybox
+          command:
+            - sh
+            - -c
+            - if [ $(ls -ldn /archiva-data | awk '{ print $3 }') != 1000 ]; then chown -R 1000:1000 /archiva-data; fi 
+          volumeMounts:
+            - mountPath: /archiva-data
+              name: archiva-data
+      containers:
+        - name: archiva
+          image: "xetusoss/archiva:v2"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: JVM_MAX_MEM
+              value: "768"
+          volumeMounts:
+            - mountPath: /archiva-data
+              name: archiva-data
+          readinessProbe:
+            exec:
+              command:
+                - /healthcheck.sh
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - /healthcheck.sh
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 27
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 1Gi
+            requests:
+              cpu: 500m
+              memory: 800Mi
+
+      volumes:
+        - name: archiva-data
+          emptyDir: {}
