@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: master
-        image: htk-jenkins
+        image: kgyrtkirk/htk-jenkins
         resources:
           requests:
             cpu: 1000m
