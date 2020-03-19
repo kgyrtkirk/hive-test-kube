@@ -10,4 +10,5 @@ doit:
 	#kubectl apply -f k8s/jenkins-deployment.yaml
 	kubectl apply -f k8s/jenkins-service.yaml
 	kubectl apply -f k8s/archiva.yaml
+	kubectl apply -f k8s/archiva-service.yaml
 	kubectl get all
