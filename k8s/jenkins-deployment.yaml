@@ -15,6 +15,7 @@ spec:
       labels:
         app: htk-jenkins
     spec:
+      serviceAccountName: jenkins
       containers:
       - name: master
         image: kgyrtkirk/htk-jenkins
@@ -25,3 +26,4 @@ spec:
             memory: 2000Mi
         ports:
         - containerPort: 8080
+        
