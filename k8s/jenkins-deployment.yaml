@@ -1,0 +1,25 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: jenkins
+  labels:
+    app: htk-jenkins
+spec:
+  selector:
+    matchLabels:
+      app: htk-jenkins
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: htk-jenkins
+    spec:
+      containers:
+      - name: master
+        image: htk-jenkins
+        resources:
+          requests:
+            cpu: 1000m
+            memory: 2000Mi
+        ports:
+        - containerPort: 8080
