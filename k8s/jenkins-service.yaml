@@ -5,9 +5,9 @@ metadata:
   labels:
     app: htk-jenkins
 spec:
-  type: ClusterIP
+  #type: ClusterIP
   #type: NodePort 
-  # type: LoadBalancer
+  type: LoadBalancer
   ports:
   - port: 8080
   selector:
