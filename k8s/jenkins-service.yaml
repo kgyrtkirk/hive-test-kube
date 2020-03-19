@@ -8,6 +8,6 @@ spec:
   type: NodePort 
   # type: LoadBalancer
   ports:
-  - port: 8080
+  - port: 8080:8080
   selector:
     app: htk-jenkins
