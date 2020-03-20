@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: archiva-internal
+  name: artifactory-internal
   labels:
-    app: htk-archiva
+    app: htk-artifactory
 spec:
   selector:
-    app: htk-archiva
+    app: htk-artifactory
   type: ClusterIP
   ports:
     - name: http
@@ -17,13 +17,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: archiva
+  name: artifactory
   labels:
-    app: htk-archiva
+    app: htk-artifactory
 spec:
   type: LoadBalancer
   selector:
-    app: htk-archiva
+    app: htk-artifactory
   ports:
     - name: http
       port: 80

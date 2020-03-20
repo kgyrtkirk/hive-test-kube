@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: htk-archiva
+  name: artifactory
   labels:
-    app: htk-archiva
+    app: htk-artifactory
 spec:
   selector:
     matchLabels:
-      app: htk-archiva
+      app: htk-artifactory
   replicas: 1
   template:
     metadata:
       labels:
-        app: htk-archiva
+        app: htk-artifactory
     spec:
       initContainers:
         - name: init-ownership
@@ -20,36 +20,23 @@ spec:
           command:
             - sh
             - -c
-            - if [ $(ls -ldn /archiva-data | awk '{ print $3 }') != 1000 ]; then chown -R 1000:1000 /archiva-data; fi 
+            - if [ $(ls -ldn /artifactory-data | awk '{ print $3 }') != 1000 ]; then chown -R 1000:1000 /artifactory-data; fi 
           volumeMounts:
-            - mountPath: /archiva-data
-              name: archiva-data
+            - mountPath: /artifactory-data
+              name: artifactory-data
       containers:
-        - name: archiva
-          image: "xetusoss/archiva:latest"
-          imagePullPolicy: Always
+        - name: artifactory
+          image: "kgyrtkirk/htk-artifactory:latest"
+          imagePullPolicy: Never
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8081
           env:
             - name: JVM_MAX_MEM
               value: "768"
           volumeMounts:
-            - mountPath: /archiva-data
-              name: archiva-data
-          readinessProbe:
-            exec:
-              command:
-                - /healthcheck.sh
-            initialDelaySeconds: 5
-            periodSeconds: 5
-          livenessProbe:
-            exec:
-              command:
-                - /healthcheck.sh
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            failureThreshold: 27
+            - mountPath: /artifactory-data
+              name: artifactory-data
           resources:
             limits:
               cpu: 1500m
@@ -59,5 +46,5 @@ spec:
               memory: 800Mi
 
       volumes:
-        - name: archiva-data
+        - name: artifactory-data
           emptyDir: {}
