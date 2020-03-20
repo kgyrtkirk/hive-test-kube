@@ -7,6 +7,7 @@ doit:
 	docker build -t kgyrtkirk/htk-jenkins htk-jenkins
 	docker build -t kgyrtkirk/htk-artifactory htk-artifactory
 	#kubectl delete deployment.apps/jenkins
+	kubectl delete deployment.apps/artifactory
 	kubectl apply -f k8s/service-account.yaml
 	#kubectl apply -f k8s/jenkins-deployment.yaml
 	kubectl apply -f k8s/jenkins-service.yaml
