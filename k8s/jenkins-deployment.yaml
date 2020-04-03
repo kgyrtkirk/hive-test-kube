@@ -11,17 +11,17 @@ spec:
       app: htk-jenkins
   replicas: 1
   template:
-    nodeSelector:
-      type: core
     metadata:
       labels:
         app: htk-jenkins
     spec:
-      serviceAccountName: jenkins
+      nodeSelector:
+        type: core
+        #serviceAccountName: jenkins
       containers:
       - name: master
         image: kgyrtkirk/htk-jenkins
-        #imagePullPolicy: Never
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 1000m
