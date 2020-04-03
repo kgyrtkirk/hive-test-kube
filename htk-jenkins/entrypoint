@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+if [ ! -s /var/jenkins_home/config.xml ];then
+	echo " @ setting jenkins defaults"
+	cp -r /var/jenkins_home_default/ /var/jenkins_home/
+fi
+
+exec "$@"

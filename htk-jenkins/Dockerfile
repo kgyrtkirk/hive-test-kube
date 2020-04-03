@@ -9,7 +9,9 @@ RUN /usr/local/bin/install-plugins.sh build-timeout config-file-provider rebuild
 RUN /usr/local/bin/install-plugins.sh metrics
 #USER root
 # FIXME: this should be jenkins!
-USER root
-ADD jenkins_home /var/jenkins_home
-RUN chown -R jenkins /var/jenkins_home/
-RUN ls -l /var/jenkins_home
+USER jenkins
+ADD jenkins_home /var/jenkins_home_default
+#RUN chown -R jenkins /var/jenkins_home/
+#RUN ls -l /var/jenkins_home
+ADD entrypoint /entrypoint
+ENTRYPOINT ["/entrypoint","/sbin/tini" "--" "/usr/local/bin/jenkins.sh"]
