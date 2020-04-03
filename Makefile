@@ -6,6 +6,8 @@ all:
 doit:
 	docker build -t kgyrtkirk/htk-jenkins htk-jenkins
 	docker build -t kgyrtkirk/htk-artifactory htk-artifactory
+	docker push kgyrtkirk/htk-jenkins:latest
+	exit 0
 	#kubectl delete deployment.apps/jenkins
 	kubectl delete deployment.apps/artifactory
 	kubectl apply -f k8s/service-account.yaml
