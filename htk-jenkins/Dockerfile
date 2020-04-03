@@ -14,4 +14,4 @@ ADD jenkins_home /var/jenkins_home_default
 #RUN chown -R jenkins /var/jenkins_home/
 #RUN ls -l /var/jenkins_home
 ADD entrypoint /entrypoint
-ENTRYPOINT ["/entrypoint","/sbin/tini" "--" "/usr/local/bin/jenkins.sh"]
+ENTRYPOINT ["/entrypoint"]
