@@ -25,7 +25,7 @@ spec:
             - name: http
               containerPort: 8081
           volumeMounts:
-            - mountPath: /var/opt/jfrog
+            - mountPath: /var/opt/jfrog/artifactory
               name: artifactory-data
           resources:
             limits:
