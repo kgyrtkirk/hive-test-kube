@@ -10,8 +10,7 @@ RUN /usr/local/bin/install-plugins.sh metrics
 #USER root
 # FIXME: this should be jenkins!
 USER jenkins
-ADD jenkins_home /var/jenkins_home_default
-#RUN chown -R jenkins /var/jenkins_home/
-#RUN ls -l /var/jenkins_home
-ADD entrypoint /entrypoint
-ENTRYPOINT ["/entrypoint"]
+ADD --chown=jenkins:jenkins jenkins_home /var/jenkins_home
+VOLUME /var/jenkins_home
+#ADD entrypoint /entrypoint
+#ENTRYPOINT ["/entrypoint"]
