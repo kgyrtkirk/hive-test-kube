@@ -19,7 +19,7 @@ spec:
         fsGroup: 1000
       nodeSelector:
         type: core
-        #serviceAccountName: jenkins
+      serviceAccountName: jenkins
       containers:
       - name: master
         image: kgyrtkirk/htk-jenkins

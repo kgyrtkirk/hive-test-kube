@@ -16,28 +16,16 @@ spec:
     spec:
       nodeSelector:
         type: core
-      initContainers:
-        - name: init-ownership
-          image: busybox
-          command:
-            - sh
-            - -c
-            - if [ $(ls -ldn /artifactory-data | awk '{ print $3 }') != 1000 ]; then chown -R 1000:1000 /artifactory-data; fi 
-          volumeMounts:
-            - mountPath: /artifactory-data
-              name: artifactory-data
+      securityContext:
+        fsGroup: 1030
       containers:
         - name: artifactory
-          image: "kgyrtkirk/htk-artifactory:latest"
-          #imagePullPolicy: Never
+          image: "docker.bintray.io/jfrog/artifactory-oss:6.18.1"
           ports:
             - name: http
               containerPort: 8081
-          env:
-            - name: JVM_MAX_MEM
-              value: "768"
           volumeMounts:
-            - mountPath: /artifactory-data
+            - mountPath: /var/opt/jfrog
               name: artifactory-data
           resources:
             limits:
@@ -46,7 +34,10 @@ spec:
             requests:
               cpu: 500m
               memory: 800Mi
-
       volumes:
         - name: artifactory-data
+          persistentVolumeClaim:
+            claimName: artifactory-data
+        - name: artifactory-work
           emptyDir: {}
+  
