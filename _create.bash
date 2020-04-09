@@ -1,6 +1,6 @@
 P=gcp-hive-upstream
 gcloud beta container --project "$P" \
-	clusters create "cluster-1" --zone "us-central1-c" \
+	clusters create "hive-test-kube" --zone "us-central1-c" \
 	--no-enable-basic-auth  --release-channel "regular" \
 	--machine-type "n1-standard-2" --image-type "COS" \
 	--disk-type "pd-standard" --disk-size "100" \
