@@ -5,6 +5,7 @@ metadata:
   labels:
     app: htk-artifactory
 spec:
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: htk-artifactory

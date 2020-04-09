@@ -5,7 +5,7 @@ metadata:
   labels:
     app: htk-jenkins
 spec:
-  revisionHistoryLimit: 0
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: htk-jenkins
@@ -37,4 +37,4 @@ spec:
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:
-            claimName: pvc-htk-jenkins
+            claimName: jenkins-data
