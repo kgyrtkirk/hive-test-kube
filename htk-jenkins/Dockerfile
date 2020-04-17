@@ -7,6 +7,7 @@ RUN /usr/local/bin/install-plugins.sh parallel-test-executor
 RUN /usr/local/bin/install-plugins.sh junit-realtime-test-reporter blueocean
 RUN /usr/local/bin/install-plugins.sh build-timeout config-file-provider rebuild junit copyartifact 
 RUN /usr/local/bin/install-plugins.sh metrics
+RUN /usr/local/bin/install-plugins.sh antisamy-markup-formatter slack github-oauth throttle-concurrents lockable-resources
 USER root
 RUN apt-get update && apt-get install -y nano curl nmap make git less && apt-get clean
 #USER root
