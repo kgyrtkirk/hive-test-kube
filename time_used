@@ -1,0 +1,7 @@
+#!/bin/bash
+
+U=${1:-http://34.66.156.144:8080/job/hive-precommit/job/PR-7/72/flowGraphTable/}
+
+
+curl $U | html2text -width 2000 - |grep Allocate_node_:_Body_:_Start_-_|cut -d ')' -f1|tee >(cat >&2)|sed 's/_hr_/*60_min\n/;s/_in_block/\n/'|tr '(' '\n'|grep min|cut -d '_' -f1|paste -d+ -s -|bc
+
