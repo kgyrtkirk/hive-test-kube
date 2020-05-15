@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: htk-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "hive-test-kube-ip"
+spec:
+  backend:
+    serviceName: jenkins
+    servicePort: 8080
