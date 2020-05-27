@@ -49,7 +49,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: htk-jenkins
+    app: htk-rsync
   ports:
     - name: rsync
       port: 873
