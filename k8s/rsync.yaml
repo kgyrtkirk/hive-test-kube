@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: rsync
+  labels:
+    app: htk-rsync
+spec:
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: htk-rsync
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: htk-rsync
+    spec:
+      securityContext:
+        fsGroup: 1000
+      nodeSelector:
+        type: core
+      containers:
+      - name: rsync
+        image: kgyrtkirk/htk-rsync
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 1500m
+            memory: 5000Mi
+          requests:
+            cpu: 500m
+            memory: 2000Mi
+        ports:
+        - containerPort: 873
+        volumeMounts:
+          - mountPath: "/data"
+            name: work
+      volumes:
+        - name: work
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rsync
+  labels:
+    app: htk-rsync
+spec:
+  type: ClusterIP
+  selector:
+    app: htk-jenkins
+  ports:
+    - name: rsync
+      port: 873
+      protocol: TCP
