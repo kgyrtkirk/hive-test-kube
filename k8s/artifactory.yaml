@@ -34,7 +34,7 @@ spec:
               memory: 4Gi
             requests:
               cpu: 500m
-              memory: 800Mi
+              memory: 2Gi
       volumes:
         - name: artifactory-data
           persistentVolumeClaim:
