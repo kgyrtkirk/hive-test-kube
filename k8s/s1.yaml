@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins: slave
+  name: ux1
+  namespace: default
+spec:
+  containers:
+  - command:
+    - cat
+    image: kgyrtkirk/hive-dev-box:executor
+    imagePullPolicy: Always
+    name: hdb
+    resources:
+      limits:
+        cpu: "3"
+        memory: 12000Mi
+      requests:
+        cpu: 100m
+        memory: 6400Mi
+    securityContext:
+      privileged: false
+    tty: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeSelector:
+    type: slave
+  restartPolicy: Never
+  securityContext:
+    fsGroup: 1000
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: PreferNoSchedule
+    key: type
+    operator: Equal
+    value: slave
+  - effect: NoSchedule
+    key: type
+    operator: Equal
+    value: slave
