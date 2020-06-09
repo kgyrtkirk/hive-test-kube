@@ -4,7 +4,7 @@ if [ ! -s /var/jenkins_home/config.xml ];then
 	echo " @ setting jenkins defaults"
 	cp -r /var/jenkins_home_default/./ /var/jenkins_home/
 fi
-export JAVA_OPTS+=" -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=60"
+export JAVA_OPTS+=" -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=120"
 export JAVA_OPTS+=" -Xloggc:$JENKINS_HOME/gc-%t.log -XX:NumberOfGCLogFiles=5 -XX:+UseGCLogFileRotation -XX:GCLogFileSize=20m -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintReferenceGC -XX:+PrintAdaptiveSizePolicy"
 export JAVA_OPTS+=" -server -Xms4g -Xmx8g"
 
