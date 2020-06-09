@@ -1,0 +1,10 @@
+P=gcp-hive-upstream
+V=1.16.8-gke.15
+#--node-version "$V"  
+gcloud beta container --project "$P" node-pools create "core-pool2" \
+	--cluster "hive-test-kube" --zone "us-central1-c" \
+	--machine-type "custom-2-13312" --image-type "COS" \
+	--disk-type "pd-ssd" --disk-size "100" --node-labels type=core --metadata disable-legacy-endpoints=true \
+	--scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
+	--enable-autoupgrade --enable-autorepair \
+        --num-nodes 2
