@@ -27,7 +27,7 @@ spec:
         resources:
           requests:
             cpu: 1000m
-            memory: 12000Mi
+            memory: 8000Mi
         ports:
         - containerPort: 8080
         - containerPort: 50000
@@ -37,4 +37,4 @@ spec:
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:
-            claimName: jenkins-data
+            claimName: jenkins-data2
