@@ -38,7 +38,7 @@ spec:
       volumes:
         - name: artifactory-data
           persistentVolumeClaim:
-            claimName: artifactory-data
+            claimName: artifactory-data2
         - name: artifactory-work
           emptyDir: {}
   

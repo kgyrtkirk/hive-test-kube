@@ -17,8 +17,8 @@ spec:
     spec:
       securityContext:
         fsGroup: 1000
-      nodeSelector:
-        type: core
+      #nodeSelector:
+      #  type: core
       serviceAccountName: jenkins
       containers:
       - name: master
@@ -37,4 +37,4 @@ spec:
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:
-            claimName: jenkins-data2
+            claimName: jenkins-data3
