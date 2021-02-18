@@ -15,8 +15,8 @@ spec:
       labels:
         app: htk-artifactory
     spec:
-      nodeSelector:
-        type: core
+      #nodeSelector:
+      #  type: core
       securityContext:
         fsGroup: 1030
       containers:
@@ -29,12 +29,9 @@ spec:
             - mountPath: /var/opt/jfrog/artifactory
               name: artifactory-data
           resources:
-            limits:
+            requests:
               cpu: 1500m
               memory: 4Gi
-            requests:
-              cpu: 500m
-              memory: 2Gi
       volumes:
         - name: artifactory-data
           persistentVolumeClaim:
