@@ -1,0 +1,36 @@
+#!/bin/bash -e
+
+set -x
+d="`date +%Y%m%d%H%M%S`"
+
+push="echo NOT pushing"
+if [ "$1" == "push" ]; then
+	push="docker push"
+	shift
+fi
+
+
+
+
+
+baseName=kgyrtkirk/htk-jenkins
+if [ "$1" != "" ]; then
+	altName="$1"
+	shift
+fi
+
+function build() {
+	n="$1"
+	shift
+	docker build -t  ${n} \
+		      -t ${n}:$d	"$@"
+
+	$push ${n}
+	$push ${n}:$d
+}
+
+
+cd htk-jenkins
+build docker-sandbox.infra.cloudera.com/hive/htk-jenkins .
+cd ..
+

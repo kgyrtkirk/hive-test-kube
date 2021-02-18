@@ -22,7 +22,7 @@ spec:
       serviceAccountName: jenkins
       containers:
       - name: master
-        image: kgyrtkirk/htk-jenkins
+        image: docker-sandbox.infra.cloudera.com/hive/htk-jenkins
         imagePullPolicy: Always
         resources:
           requests:
