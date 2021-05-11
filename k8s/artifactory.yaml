@@ -18,10 +18,27 @@ spec:
       #nodeSelector:
       #  type: core
       securityContext:
+        sysctls:
+        - name: net.ipv4.tcp_rmem
+          value: "4096 87380 16777216"
+        - name: net.ipv4.tcp_wmem
+          value: "4096 16384 16777216"
+        - name: net.core.somaxconn
+          value: "256000"
+        - name: net.ipv4.tcp_syncookies
+          value: "1"
+        - name: net.ipv4.ip_local_port_range
+          value: "1024 65535"
+        - name: net.ipv4.tcp_tw_reuse
+          value: "1"
+        - name: net.ipv4.tcp_congestion_control
+          value: "cubic"
+        - name: net.ipv4.tcp_max_syn_backlog
+          value: "256000"
         fsGroup: 1030
       containers:
         - name: artifactory
-          image: "docker.bintray.io/jfrog/artifactory-oss:6.18.1"
+          image: "docker.bintray.io/jfrog/artifactory-oss:6.23.13"
           ports:
             - name: http
               containerPort: 8081
