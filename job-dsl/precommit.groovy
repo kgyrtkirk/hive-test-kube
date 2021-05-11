@@ -2,14 +2,34 @@
 ['ocp','FENG','dev-compaction-observability-metrics-2021','dev-iceberg-ga'].each { hiveBranch ->
   pipelineJob("tx-internal-hive-precommit-${hiveBranch}") {
     logRotator(33, -1, -1, -1)
-    triggers {
-      gerrit {
-        events {
-          patchsetCreated()
+    properties {
+      pipelineTriggers {
+        triggers {
+          gerrit {
+            gerritProjects {
+              gerritProject {
+                disableStrictForbiddenFileVerification(false)
+                compareType('PLAIN')
+                pattern('cdh/hive')
+                branches {
+                  branch {
+                    compareType('PLAIN')
+                    pattern(hiveBranch)
+                  }
+                }
+              }
+            }
+            skipVote {
+              // the person who built this dsl construct for gerrit events must have been braindead
+              onNotBuilt(true); onSuccessful(false); onFailed(false); onUnstable(false); onAborted(false);
+            }
+          }
         }
-        project('plain:cdh/hive', ["plain:${hiveBranch}"])
-        buildNotBuilt(0,0);
       }
+    }
+    parameters {
+      stringParam('SPLIT', '20', '')
+      stringParam('OPTS', '-q', '')
     }
     definition {
       cpsScm {
