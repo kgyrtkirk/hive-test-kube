@@ -1,5 +1,5 @@
 
-['ocp','ocp-7.1','cdpd-master','FENG','dev-compaction-observability-metrics-2021','dev-iceberg-ga'].each { hiveBranch ->
+['ocp','dev-ocp-7.1','cdpd-master','FENG','dev-compaction-observability-metrics-2021','dev-iceberg-ga'].each { hiveBranch ->
   pipelineJob("tx-internal-hive-precommit-${hiveBranch}") {
     logRotator(33, -1, -1, -1)
     properties {
