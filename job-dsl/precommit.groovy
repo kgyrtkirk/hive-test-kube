@@ -1,5 +1,9 @@
-
-['ocp','dev-ocp-7.1','cdpd-master','FENG','dev-compaction-observability-metrics-2021','dev-iceberg-ga'].each { hiveBranch ->
+[   'ocp':'cdpd-master',
+    'dev-ocp-7.1':'CDH-7.1-maint',
+    'cdpd-master':'cdpd-master',
+    'FENG':'FENG',
+    'dev-compaction-observability-metrics-2021':'cdpd-master',
+    'dev-iceberg-ga':'cdpd-master'].each { hiveBranch,baseBranch ->
   pipelineJob("tx-internal-hive-precommit-${hiveBranch}") {
     logRotator(33, -1, -1, -1)
     properties {
@@ -30,6 +34,7 @@
     parameters {
       stringParam('SPLIT', '20', 'Number of buckets to split tests into.')
       stringParam('OPTS', '-q', 'additional maven opts')
+      stringParam('VERSION', baseBranch, 'the version to be used; cdpd-master, CDH-7.1-maint, 7.1.1.2, 7.1.1.2-111, NO to skip, leave empty for autodetect')
     }
     definition {
       cpsScm {
@@ -38,11 +43,7 @@
             remote {
               url('ssh://ptest@gerrit.sjc.cloudera.com:29418/cdh/hive.git')
               credentials('gerrit-ptest')
-              if(hiveBranch.startsWith("dev-")) {
-                refspec('+${GERRIT_REFSPEC}:refs/remotes/gerrit/patch +refs/heads/cdpd-master:refs/remotes/gerrit/target')
-              }else{
-                refspec('+${GERRIT_REFSPEC}:refs/remotes/gerrit/patch +refs/heads/${GERRIT_BRANCH}:refs/remotes/gerrit/target')
-              }
+              refspec('+${GERRIT_REFSPEC}:refs/remotes/gerrit/patch +refs/heads/'+baseBranch+':refs/remotes/gerrit/target')
             }
             branch(hiveBranch)
           }
