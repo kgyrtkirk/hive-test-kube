@@ -1,5 +1,6 @@
 [   'ocp':'cdpd-master',
     'dev-ocp-7.1':'CDH-7.1-maint',
+    'CDH-7.1-maint':'CDH-7.1-maint',
     'cdpd-master':'cdpd-master',
     'FENG':'FENG',
     'dev-compaction-observability-metrics-2021':'cdpd-master',
