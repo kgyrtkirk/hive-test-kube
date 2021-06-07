@@ -2,7 +2,7 @@
     'dev-ocp-7.1':'CDH-7.1-maint',
     'CDH-7.1-maint':'CDH-7.1-maint',
     'cdpd-master':'cdpd-master',
-    'FENG':'FENG',
+    'FENG':'cdpd-master',
     'dev-compaction-observability-metrics-2021':'cdpd-master',
     'dev-iceberg-ga2':'cdpd-master',
     'dev-iceberg-ga':'cdpd-master'].each { hiveBranch,baseBranch ->
