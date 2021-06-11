@@ -1,6 +1,6 @@
 
-def executorNode(run) {
-  hdbPodTemplate {
+def executorNode(host,run) {
+  hdbPodTemplate(host) {
     timeout(time: 60, unit: 'MINUTES') {
       node(POD_LABEL) {
         container('hdb') {
@@ -11,20 +11,34 @@ def executorNode(run) {
   }
 }
 
-def hdbPodTemplate(closure) {
+def hdbPodTemplate(host,closure) {
   podTemplate(
   slaveConnectTimeout: -100,
   containers: [
-    containerTemplate(name: 'hdb', image: 'docker-sandbox.infra.cloudera.com/hive/hive-dev-box:executor', ttyEnabled: true, command: 'tini -- cat',
-        alwaysPullImage: true
+    containerTemplate(name: 'hdb', image: 'docker-sandbox.infra.cloudera.com/hive/hive-dev-box:executor', ttyEnabled: true, command: 'tini -- cat'
     )
-  ], yaml: '''
-''') {
+  ], yaml: """
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: worker12.kc-04-ocp4.cloudera.com
+""") {
   closure();
+  }
 }
 
-executorNode {
-  container('hdb') {
-    sh('echo ok');
+timestamps {
+  def branches = [:]
+  for(int i=0;i<15;i++ ) {
+    branches["worker${i}"]={
+        executorNode("worker${i}.kc-04-ocp4.cloudera.com") {
+        container('hdb') {
+          sh('echo ok');
+        }
+      }
+    }
+  }
+
+  stage('Testing') {
+    parallel branches
   }
 }
