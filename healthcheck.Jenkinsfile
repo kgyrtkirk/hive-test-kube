@@ -17,10 +17,12 @@ def hdbPodTemplate(host,closure) {
   containers: [
     containerTemplate(name: 'hdb', image: 'docker-sandbox.infra.cloudera.com/hive/hive-dev-box:executor', ttyEnabled: true, command: 'tini -- cat'
     )
-  ], yaml: """
+  ],
+  //volumes: [ emptyDirVolume(mountPath: '/empty', memory: false),
+   yaml: """
 spec:
   nodeSelector:
-    kubernetes.io/hostname: worker12.kc-04-ocp4.cloudera.com
+    kubernetes.io/hostname: ${host}
 """) {
   closure();
   }
@@ -29,8 +31,9 @@ spec:
 timestamps {
   def branches = [:]
   for(int i=0;i<15;i++ ) {
-    branches["worker${i}"]={
-        executorNode("worker${i}.kc-04-ocp4.cloudera.com") {
+    def name="worker${i}"
+    branches[name]={
+        executorNode("${name}.kc-04-ocp4.cloudera.com") {
         container('hdb') {
           sh('echo ok');
         }
