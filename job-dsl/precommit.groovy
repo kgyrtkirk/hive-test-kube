@@ -4,6 +4,7 @@
     'cdpd-master':'cdpd-master',
     'FENG':'cdpd-master',
     'r20':'cdpd-master',
+    'R21':'cdpd-master',
     'dev-compaction-observability-metrics-2021':'cdpd-master',
     'dev-iceberg-ga2':'cdpd-master',
     'dev-iceberg-ga':'cdpd-master'].each { hiveBranch,baseBranch ->
