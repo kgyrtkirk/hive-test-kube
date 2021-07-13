@@ -3,6 +3,7 @@
     'CDH-7.1-maint':'CDH-7.1-maint',
     'cdpd-master':'cdpd-master',
     'FENG':'cdpd-master',
+    'CDH-7.1.7.x':'CDH-7.1.7.x',
     'r20':'cdpd-master',
     'R21':'cdpd-master',
     'dev-compaction-observability-metrics-2021':'cdpd-master',
