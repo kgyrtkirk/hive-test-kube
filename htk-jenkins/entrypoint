@@ -6,6 +6,7 @@ if [ ! -s /var/jenkins_home/config.xml ];then
 fi
 export JAVA_OPTS+=" -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=180"
 export JAVA_OPTS+=" -Xloggc:$JENKINS_HOME/gc-%t.log -XX:NumberOfGCLogFiles=5 -XX:+UseGCLogFileRotation -XX:GCLogFileSize=20m -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintReferenceGC -XX:+PrintAdaptiveSizePolicy"
+export JAVA_OPTS+=" -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$JENKINS_HOME/heapdump.bin"
 export JAVA_OPTS+=" -server -Xms4g -Xmx8g"
 
 if [ "$1" == "" ];then
