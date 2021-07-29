@@ -8,6 +8,7 @@
     'R21':'cdpd-master',
     'dev-compaction-observability-metrics-2021':'cdpd-master',
     'dev-iceberg-ga2':'cdpd-master',
+    'dev-compaction-observability-metrics-2021-v2':'cdpd-master',
     'dev-iceberg-ga':'cdpd-master'].each { hiveBranch,baseBranch ->
   pipelineJob("tx-internal-hive-precommit-${hiveBranch}") {
     logRotator(33, -1, -1, -1)
