@@ -5,6 +5,7 @@
     'FENG':'cdpd-master',
     'CDH-7.1.7.x':'CDH-7.1.7.x',
     'R23':'cdpd-master',
+    'R24':'cdw-master',
     'cdw-master':'cdw-master',
     'dev-compaction-observability-metrics-2021':'cdpd-master',
     'dev-iceberg-ga2':'cdpd-master',
