@@ -13,7 +13,8 @@
     'dev-iceberg-ga2':'cdw-master',
     'dev-compaction-observability-metrics-2021-v2':'cdw-master',
     'dev-iceberg-ga':'cdpd-master',
-    'dev-comp-R25':'cdw-master'].each { hiveBranch,baseBranch ->
+    'dev-comp-R25':'cdw-master',
+    'dev-direct-delete-and-update':'cdw-master'].each { hiveBranch,baseBranch ->
   pipelineJob("tx-internal-hive-precommit-${hiveBranch}") {
     logRotator(33, -1, -1, -1)
     properties {
