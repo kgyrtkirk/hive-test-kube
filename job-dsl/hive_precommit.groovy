@@ -4,6 +4,7 @@
     'cdpd-master':'cdpd-master',
     'FENG':'cdpd-master',
     'CDH-7.1.7.x':'CDH-7.1.7.x',
+    'CDH-7.2.11.1':'CDH-7.2.11.0',
     'CDH-7.2.12.0':'CDH-7.2.12.0',
     'R23':'cdpd-master',
     'R24':'cdw-master',
