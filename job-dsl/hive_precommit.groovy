@@ -4,14 +4,18 @@
     'cdpd-master':'cdpd-master',
     'FENG':'cdpd-master',
     'CDH-7.1.7.x':'CDH-7.1.7.x',
+    'CDH-7.2.11.1':'CDH-7.2.11.0',
+    'CDH-7.2.12.0':'CDH-7.2.12.0',
     'R23':'cdpd-master',
     'R24':'cdw-master',
     'R25':'cdw-master',
     'cdw-master':'cdw-master',
-    'dev-compaction-observability-metrics-2021':'cdpd-master',
+    'dev-compaction-observability-metrics-2021':'cdw-master',
     'dev-iceberg-ga2':'cdw-master',
-    'dev-compaction-observability-metrics-2021-v2':'cdpd-master',
-    'dev-iceberg-ga':'cdpd-master'].each { hiveBranch,baseBranch ->
+    'dev-compaction-observability-metrics-2021-v2':'cdw-master',
+    'dev-iceberg-ga':'cdpd-master',
+    'dev-comp-R25':'cdw-master',
+    'dev-direct-delete-and-update':'cdw-master'].each { hiveBranch,baseBranch ->
   pipelineJob("tx-internal-hive-precommit-${hiveBranch}") {
     logRotator(33, -1, -1, -1)
     properties {
