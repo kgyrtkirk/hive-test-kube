@@ -54,7 +54,7 @@
     }
     definition {
       cps {
-        script(new File(new File(getClass().protectionDomain.codeSource.location.path).parent,"hive.Jenkinsfile").text)
+        script(new File(getClass().getResource("hive.Jenkinsfile").toString()).text)
       }
     }
   }
