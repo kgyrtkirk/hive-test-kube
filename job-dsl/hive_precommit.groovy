@@ -55,6 +55,7 @@
     definition {
       cps {
         script(new File("${WORKSPACE}/hive-test-kube/job-dsl/hive.Jenkinsfile").text)
+        sandbox()
       }
     }
   }
