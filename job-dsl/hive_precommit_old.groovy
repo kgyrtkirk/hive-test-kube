@@ -15,12 +15,8 @@
     'dev-compaction-observability-metrics-2021-v2':'cdw-master',
     'dev-iceberg-ga':'cdpd-master',
     'dev-comp-R25':'cdw-master',
-    'dev-direct-delete-and-update':'cdw-master']
-    
-[
-  'ocp':'cdw-master'
-].each { hiveBranch,baseBranch ->
-  pipelineJob("internal-hive-precommit-${hiveBranch}") {
+    'dev-direct-delete-and-update':'cdw-master'].each { hiveBranch,baseBranch ->
+  pipelineJob("tx-internal-hive-precommit-${hiveBranch}") {
     logRotator(33, -1, -1, -1)
     properties {
       pipelineTriggers {
@@ -53,8 +49,18 @@
       stringParam('VERSION', baseBranch, 'the version to be used; cdpd-master, CDH-7.1-maint, 7.1.1.2, 7.1.1.2-111, NO to skip, leave empty for autodetect')
     }
     definition {
-      cps {
-        script(new File("job-dsl/hive.Jenkinsfile").text)
+      cpsScm {
+        scm {
+          git {
+            remote {
+              url('ssh://ptest@gerrit.sjc.cloudera.com:29418/cdh/hive.git')
+              credentials('gerrit-ptest')
+              refspec('+${GERRIT_REFSPEC}:refs/remotes/gerrit/patch +refs/heads/'+baseBranch+':refs/remotes/gerrit/target')
+            }
+            branch(hiveBranch)
+          }
+        }
+        lightweight()
       }
     }
   }
