@@ -54,7 +54,7 @@
     }
     definition {
       cps {
-        script(new File("job-dsl/hive.Jenkinsfile").text)
+        script(new File("hive-test-kube/job-dsl/hive.Jenkinsfile").text)
       }
     }
   }
