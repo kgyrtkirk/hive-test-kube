@@ -21,7 +21,7 @@ job('htk-seed') {
     steps {
         dsl {
             external 'hive-test-kube/job-dsl/**/*.groovy'
-            removeAction('DELETE')
+            removeAction('DISABLE')
         }
     }
 }
