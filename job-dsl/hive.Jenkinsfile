@@ -243,10 +243,6 @@ jobWrappers {
       stage('Checkout') {
         if( env.GERRIT_PATCHSET_REVISION != null ) {
           println "@gerrit patchset"
-          sh '''#!/bin/bash -e
-          echo "@@@"
-          id
-          '''
 
           checkout([
             $class: 'GitSCM',
@@ -261,15 +257,8 @@ jobWrappers {
             ]],
           ])
 
-
-//        lightweight()
-
-
           sh '''#!/bin/bash -e
 echo "@ prepare branch"
-set -x
-git branch
-ls
 git config user.email "you@example.com"
 git config user.name "Your Name"
 git status
@@ -321,7 +310,7 @@ http_proxy=http://sustwork.bdp.cloudera.com:3128 cdpd-patcher hive $VERSION
         println ("Attempting to build calcite: ")
         buildCustomComponent(customComponentBuilds.get("calcite"), "")
 
-        buildHive("install -Dtest=TestParseDriver#nonExistent  -Dtest=TestHdfsUtils,TestSessionState -pl ql,standalone-metastore -am","retry 3")
+        buildHive("install -Dtest=TestParseDriver#nonExistent","retry 3")
         buildHive("org.apache.maven.plugins:maven-dependency-plugin:get -Dartifact=org.apache.maven.plugins:maven-antrun-plugin:1.8","retry 3")
         
       }
