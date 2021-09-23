@@ -1,4 +1,3 @@
-if(false)
 [   
     'dev-ocp-7.1':'CDH-7.1-maint',
     'CDH-7.1-maint':'CDH-7.1-maint',
