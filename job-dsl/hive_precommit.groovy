@@ -1,4 +1,4 @@
-[   'ocp':'cdpd-master',
+/*[   'ocp':'cdpd-master',
     'dev-ocp-7.1':'CDH-7.1-maint',
     'CDH-7.1-maint':'CDH-7.1-maint',
     'cdpd-master':'cdpd-master',
@@ -16,11 +16,25 @@
     'dev-iceberg-ga':'cdpd-master',
     'dev-comp-R25':'cdw-master',
     'dev-direct-delete-and-update':'cdw-master']
+    */
     
 [
-  'ocp':'cdw-master'
-].each { hiveBranch,baseBranch ->
-  pipelineJob("internal-hive-precommit-${hiveBranch}") {
+  'CDH-7.2.11.1':['CDH-7.2.11.1'],
+  'CDH-7.2.12.0':['CDH-7.2.12.0'],
+  'CDH-7.1-maint':['CDH-7.1-maint'],
+  'cdpd-master': ['cdpd-master'],
+  'cdw-master': [ 'ocp',
+                  'cdw-master',
+                  'R24','R25',
+                  'dev-direct-delete-and-update',
+                  'dev-compaction-observability-metrics-2021',
+                  'dev-iceberg-ga2',
+                  'dev-compaction-observability-metrics-2021-v2',
+                  'dev-iceberg-ga',
+                  'dev-comp-R25',
+                  ]
+].each { baseBranch, inputBranches ->
+  pipelineJob("internal-hive-precommit-${baseBranch}") {
     logRotator(33, -1, -1, -1)
     properties {
       pipelineTriggers {
@@ -33,8 +47,10 @@
                 pattern('cdh/hive')
                 branches {
                   branch {
-                    compareType('PLAIN')
-                    pattern(hiveBranch)
+                    inputBranches.each { b -> 
+                      compareType('PLAIN')
+                      pattern(b)
+                    }
                   }
                 }
               }
