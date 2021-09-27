@@ -46,8 +46,8 @@
                 compareType('PLAIN')
                 pattern('cdh/hive')
                 branches {
-                  branch {
-                    inputBranches.each { b -> 
+                  inputBranches.each { b -> 
+                    branch {
                       compareType('PLAIN')
                       pattern(b)
                     }
