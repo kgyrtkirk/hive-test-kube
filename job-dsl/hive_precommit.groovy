@@ -1,23 +1,3 @@
-/*[   'ocp':'cdpd-master',
-    'dev-ocp-7.1':'CDH-7.1-maint',
-    'CDH-7.1-maint':'CDH-7.1-maint',
-    'cdpd-master':'cdpd-master',
-    'FENG':'cdpd-master',
-    'CDH-7.1.7.x':'CDH-7.1.7.x',
-    'CDH-7.2.11.1':'CDH-7.2.11.0',
-    'CDH-7.2.12.0':'CDH-7.2.12.0',
-    'R23':'cdpd-master',
-    'R24':'cdw-master',
-    'R25':'cdw-master',
-    'cdw-master':'cdw-master',
-    'dev-compaction-observability-metrics-2021':'cdw-master',
-    'dev-iceberg-ga2':'cdw-master',
-    'dev-compaction-observability-metrics-2021-v2':'cdw-master',
-    'dev-iceberg-ga':'cdpd-master',
-    'dev-comp-R25':'cdw-master',
-    'dev-direct-delete-and-update':'cdw-master']
-    */
-    
 [
   'CDH-7.2.11.1':['CDH-7.2.11.1'],
   'CDH-7.2.12.0':['CDH-7.2.12.0'],
