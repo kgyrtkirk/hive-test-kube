@@ -25,7 +25,7 @@
   'cdpd-master': ['cdpd-master'],
   'cdw-master': [ 'ocp',
                   'cdw-master',
-                  'R24','R25',
+                  'R24','R25', 'R26',
                   'dev-direct-delete-and-update',
                   'dev-compaction-observability-metrics-2021',
                   'dev-iceberg-ga2',
