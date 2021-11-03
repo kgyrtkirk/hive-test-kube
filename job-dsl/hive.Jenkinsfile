@@ -90,7 +90,7 @@ cd $COMPONENT/$BUILD_SUB_DIR
 git branch
 git status
 git log -1 --pretty="%h %B"
-http_proxy=http://sustwork.bdp.cloudera.com:3128 cdpd-patcher $COMPONENT
+cdpd-patcher $COMPONENT
 cp $SETTINGS $HIVE_DIR/.git/settings.xml
 mvn clean install -DskipTests -Dmaven.repo.local=$HIVE_DIR/.git/m2 -s $HIVE_DIR/.git/settings.xml -q '''+mavenOpts+'''
 '''
@@ -279,7 +279,7 @@ echo "@ merged"
       stage('Prepare sources') {
         sh '''#!/bin/bash -e
 
-http_proxy=http://sustwork.bdp.cloudera.com:3128 cdpd-patcher hive $VERSION
+cdpd-patcher hive $VERSION
         '''
       }
       if(false)
