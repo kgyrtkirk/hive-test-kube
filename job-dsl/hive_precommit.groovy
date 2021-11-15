@@ -8,7 +8,6 @@
                   'R24','R25', 'R26',
                   'dev-direct-delete-and-update',
                   'dev-compaction-observability-metrics-2021',
-                  'dev-iceberg-ga2',
                   'dev-compaction-observability-metrics-2021-v2',
                   'dev-iceberg-ga',
                   'dev-comp-R25',
