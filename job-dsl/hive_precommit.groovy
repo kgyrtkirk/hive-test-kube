@@ -11,7 +11,8 @@
                   'dev-compaction-observability-metrics-2021-v2',
                   'dev-iceberg-ga',
                   'dev-comp-R25',
-                  ]
+                  ],
+  'CDWH-2021.0.5' : ['CDWH-2021.0.5'],
 ].each { baseBranch, inputBranches ->
   pipelineJob("internal-hive-precommit-${baseBranch}") {
     logRotator(33, -1, -1, -1)
