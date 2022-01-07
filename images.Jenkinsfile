@@ -17,7 +17,7 @@ def hdbPodTemplate(closure) {
   containers: [
     containerTemplate(name: 'hdb', image: 'docker-sandbox.infra.cloudera.com/hive/hive-dev-box:executor', ttyEnabled: true, command: 'tini -- cat',
         envVars: [
-            envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375')
+      //      envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375')
         ]
     ),
     containerTemplate(name: 'dind', image: 'docker:20.10-dind',
