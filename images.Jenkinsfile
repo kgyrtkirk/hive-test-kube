@@ -1,6 +1,6 @@
 
-def executorNode(host,run) {
-  hdbPodTemplate(host) {
+def executorNode(run) {
+  hdbPodTemplate() {
     timeout(time: 60, unit: 'MINUTES') {
       node(POD_LABEL) {
         container('hdb') {
