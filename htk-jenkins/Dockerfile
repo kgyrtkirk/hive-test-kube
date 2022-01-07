@@ -1,7 +1,9 @@
 FROM jenkins/jenkins:lts
 
 #RUN /usr/local/bin/install-plugins.sh github-api:1.111
-RUN /usr/local/bin/install-plugins.sh git ansicolor github build-name-setter timestamper kubernetes
+RUN /usr/local/bin/install-plugins.sh git
+RUN /usr/local/bin/install-plugins.sh timestamper
+RUN /usr/local/bin/install-plugins.sh ansicolor github build-name-setter timestamper kubernetes
 # some issue with service; 
 RUN /usr/local/bin/install-plugins.sh maven-plugin
 RUN /usr/local/bin/install-plugins.sh parallel-test-executor
