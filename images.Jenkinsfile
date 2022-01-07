@@ -41,7 +41,7 @@ timestamps {
           sh('docker ps -a');
           sh('ls -la');
           sh('''
-          git clone github.com/kgyrtkirk/hive-dev-box
+          git clone https://github.com/kgyrtkirk/hive-dev-box
           cd hive-dev-box
           ./buildAll
           ''');
