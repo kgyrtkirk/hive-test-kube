@@ -40,6 +40,11 @@ timestamps {
           checkout scm
           sh('docker ps -a');
           sh('ls -la');
+          sh('''
+          git clone github.com/kgyrtkirk/hive-dev-box
+          cd hive-dev-box
+          ./buildAll
+          ''');
           sh('./buildAll');
         }
     }
