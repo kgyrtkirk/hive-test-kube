@@ -35,9 +35,10 @@ def hdbPodTemplate(closure) {
 timestamps {
     executorNode() {
         container('hdb') {
-            sh('echo ok');
-            sh('docker ps -a');
-            sh('ls -la');
+          checkout scm
+          sh('docker ps -a');
+          sh('ls -la');
+          sh('./buildAll');
         }
     }
 }
