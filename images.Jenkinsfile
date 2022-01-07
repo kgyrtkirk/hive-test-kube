@@ -16,6 +16,11 @@ def hdbPodTemplate(closure) {
   slaveConnectTimeout: -100,
   containers: [
     containerTemplate(name: 'hdb', image: 'docker-sandbox.infra.cloudera.com/hive/hive-dev-box:executor', ttyEnabled: true, command: 'tini -- cat',
+        resourceRequestCpu: '2800m',
+        resourceLimitCpu: '8000m',
+        resourceRequestMemory: '12000Mi',
+        resourceLimitMemory: '25000Mi',
+
         envVars: [
       //      envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375')
         ]
