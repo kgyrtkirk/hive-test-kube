@@ -27,6 +27,7 @@ def hdbPodTemplate(closure) {
   volumes: [
     persistentVolumeClaim(claimName: 'images-job-cache', mountPath: '/var/lib/docker'),
     //emptyDirVolume(mountPath: '/var/lib/docker', memory: false),
+    emptyDirVolume(mountPath: '/var/run', memory: false),
   ], yaml:'''
 ''') {
   closure();
