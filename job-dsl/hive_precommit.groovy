@@ -11,6 +11,7 @@
                   'dev-compaction-observability-metrics-2021-v2',
                   'dev-iceberg-ga',
                   'dev-comp-R25',
+		'dev-calcite-1.25',
                   ],
   'CDWH-2021.0.5' : ['CDWH-2021.0.5'],
 ].each { baseBranch, inputBranches ->
