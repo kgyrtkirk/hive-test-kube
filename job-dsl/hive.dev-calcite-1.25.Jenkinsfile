@@ -119,7 +119,10 @@ git status
 git log -1 --pretty="%h %B"
 #http_proxy=http://sustwork.bdp.cloudera.com:3128 cdpd-patcher $COMPONENT
 cp $SETTINGS $HIVE_DIR/.git/settings.xml
+mkdir -p ~/.m2
+ln -s $HIVE_DIR/.git ~/.m2/
 #mvn clean install -DskipTests -Dmaven.repo.local=$HIVE_DIR/.git/m2 -s $HIVE_DIR/.git/settings.xml -q '''+mavenOpts+'''
+sed -i 's/calcite.version=.*/calcite.version=1.25.99/' gradle.properties 
 ./gradlew publishToMavenLocal -Pxcalcite.avatica.version=1.0.0-dev-master -PskipJavadoc
 '''
     }
@@ -308,9 +311,10 @@ echo "@ merged"
       stage('Prepare sources') {
         sh '''#!/bin/bash -e
 
+git checkout -b work
 cdpd-patcher hive $VERSION
-git commit -m 'pom-patch' -a
-xmlstarlet edit -L --update "/_:project/_:properties/_:calcite.version" --value 1.25.0-SNAPSHOT pom.xml 
+#git commit -m 'pom-patch' -a
+xmlstarlet edit -L --update "/_:project/_:properties/_:calcite.version" --value 1.25.99-SNAPSHOT pom.xml 
 git commit -m 'calcite 1.25.0' -a
 git show
         '''
