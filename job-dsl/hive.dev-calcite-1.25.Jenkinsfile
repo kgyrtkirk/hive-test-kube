@@ -103,11 +103,14 @@ def buildCustomComponent2(info, mavenOpts, buildSubDir=".") {
     println ("skipping custom component build, info is not found...")
     return
   }
-  configFileProvider([configFile(fileId: 'artifactory', variable: 'SETTINGS')]) {
+  configFileProvider([configFile(fileId: 'gradle-init.d', variable: 'GRADLE_INIT')]) {
     withEnv(["BUILD_SUB_DIR=$buildSubDir", "COMPONENT=$info.component", "GIT_USER=$info.user", "GIT_BRANCH=$info.branch"]) {
       sh '''#!/bin/bash -e
 . /etc/profile.d/confs.sh
 set -x
+
+mkdir -p ~/.gradle/init.d/
+cp $GRADLE_INIT ~/.gradle/init.d/init.gradle
 
 HIVE_DIR=$PWD
 cd ..
@@ -118,17 +121,17 @@ git branch
 git status
 git log -1 --pretty="%h %B"
 #http_proxy=http://sustwork.bdp.cloudera.com:3128 cdpd-patcher $COMPONENT
-cp $SETTINGS $HIVE_DIR/.git/settings.xml
+#cp $SETTINGS $HIVE_DIR/.git/settings.xml
 mkdir -p ~/.m2
 ln -s $HIVE_DIR/.git ~/.m2/
+
 #mvn clean install -DskipTests -Dmaven.repo.local=$HIVE_DIR/.git/m2 -s $HIVE_DIR/.git/settings.xml -q '''+mavenOpts+'''
 sed -i 's/calcite.version=.*/calcite.version=1.25.99/' gradle.properties 
-./gradlew publishToMavenLocal -Pxcalcite.avatica.version=1.0.0-dev-master -PskipJavadoc
+./gradlew publishToMavenLocal -Pxcalcite.avatica.version=1.0.0-dev-master -PskipJavadoc -Dmaven.repo.local=$HIVE_DIR/.git/m2
 '''
     }
   }
 }
-
 
 def buildHive(args,wrapper="") {
   configFileProvider([configFile(fileId: 'artifactory', variable: 'SETTINGS')]) {
