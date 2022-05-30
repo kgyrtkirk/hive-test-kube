@@ -19,9 +19,9 @@ USER root
 RUN apt-get update && apt-get install -y nano curl nmap make git less && apt-get clean
 #USER root
 # FIXME: this should be jenkins!
-USER jenkins
 ADD jenkins_home /var/jenkins_home_default
-#RUN chown -R jenkins /var/jenkins_home/
+RUN chown -R jenkins /var/jenkins_home /var/jenkins_home_default
+USER jenkins
 #RUN ls -l /var/jenkins_home
 ADD entrypoint /entrypoint
 ENTRYPOINT ["/entrypoint"]
