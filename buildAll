@@ -31,6 +31,7 @@ function build() {
 
 
 cd htk-jenkins
-build docker-sandbox.infra.cloudera.com/hive/htk-jenkins .
+#build docker-sandbox.infra.cloudera.com/hive/htk-jenkins .
+build kgyrtkirk/htk-jenkins .
 cd ..
 

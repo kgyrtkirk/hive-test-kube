@@ -14,6 +14,7 @@ RUN /usr/local/bin/install-plugins.sh antisamy-markup-formatter slack github-oau
 RUN /usr/local/bin/install-plugins.sh gerrit-trigger gerrit-code-review http_request
 RUN /usr/local/bin/install-plugins.sh docker-workflow command-launcher google-oauth-plugin jira blueocean-jira jdk-tool ssh-credentials
 RUN /usr/local/bin/install-plugins.sh job-dsl
+RUN /usr/local/bin/install-plugins.sh sonar
 USER root
 RUN apt-get update && apt-get install -y nano curl nmap make git less && apt-get clean
 #USER root
