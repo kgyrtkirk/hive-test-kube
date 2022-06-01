@@ -1,10 +1,11 @@
 FROM jenkins/jenkins:lts
+#FROM jenkins/jenkins:2.303.1-lts-jdk11
 #latest-jdk8
 
 #RUN /usr/local/bin/install-plugins.sh github-api:1.111
 RUN /usr/local/bin/install-plugins.sh git
 RUN /usr/local/bin/install-plugins.sh timestamper
-RUN /usr/local/bin/install-plugins.sh ansicolor github build-name-setter timestamper kubernetes
+RUN /usr/local/bin/install-plugins.sh ansicolor github build-name-setter timestamper kubernetes:1.31.2 kubernetes-client-api:5.11.1-179.v12037658df90
 # some issue with service; 
 RUN /usr/local/bin/install-plugins.sh maven-plugin
 RUN /usr/local/bin/install-plugins.sh parallel-test-executor
@@ -20,7 +21,7 @@ RUN /usr/local/bin/install-plugins.sh cloudbees-folder
 RUN /usr/local/bin/install-plugins.sh branch-api
 USER root
 RUN apt-get update && apt-get install -y nano curl nmap make git less && apt-get clean
-RUN apt-get update && apt-get install -y psmisc && apt-get clean
+RUN apt-get update && apt-get install -y psmisc procps iproute2 && apt-get clean
 #USER root
 # FIXME: this should be jenkins!
 ADD jenkins_home /var/jenkins_home_default

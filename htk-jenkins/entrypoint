@@ -5,6 +5,8 @@ if [ ! -s /var/jenkins_home/config.xml ];then
 	cp -r /var/jenkins_home_default/./ /var/jenkins_home/
 fi
 export JAVA_OPTS+=" -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=180"
+export JAVA_OPTS+=" -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.websocketConnectionTimeout=61000"
+export JAVA_OPTS+=" -Dkubernetes.websocket.timeout=63000"
 export JAVA_OPTS+=" -Xlog:gc:$JENKINS_HOME/gc-%t.log -XX:+PrintGC"
 export JAVA_OPTS+=" -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$JENKINS_HOME/heapdump.bin"
 export JAVA_OPTS+=" -server -Xms4g -Xmx8g"

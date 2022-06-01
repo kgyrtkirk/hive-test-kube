@@ -7,16 +7,6 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: jenkins
+      name: jenkins2
       port:
         number: 8080
-  rules:
-  - http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: jenkins
-            port:
-              number: 8080
