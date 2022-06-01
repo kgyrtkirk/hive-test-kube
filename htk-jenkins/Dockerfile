@@ -1,11 +1,11 @@
-FROM jenkins/jenkins:lts
-#FROM jenkins/jenkins:2.303.1-lts-jdk11
+#FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:2.303.3-lts-jdk11
 #latest-jdk8
 
 #RUN /usr/local/bin/install-plugins.sh github-api:1.111
 RUN /usr/local/bin/install-plugins.sh git
 RUN /usr/local/bin/install-plugins.sh timestamper
-RUN /usr/local/bin/install-plugins.sh ansicolor github build-name-setter timestamper kubernetes:1.31.2 kubernetes-client-api:5.11.1-179.v12037658df90
+RUN /usr/local/bin/install-plugins.sh ansicolor github build-name-setter timestamper kubernetes:1.30.1 kubernetes-client-api:5.4.1
 # some issue with service; 
 RUN /usr/local/bin/install-plugins.sh maven-plugin
 RUN /usr/local/bin/install-plugins.sh parallel-test-executor
