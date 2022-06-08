@@ -14,6 +14,7 @@
                   ],
   'CDWH-2021.0.5' : ['CDWH-2021.0.5'],
   'CDH-7.1.7.1000': ['CDH-7.1.7.1000'],
+  'CDH-7.1.8.x': ['CDH-7.1.8.x'],
 ].each { baseBranch, inputBranches ->
   pipelineJob("internal-hive-precommit-${baseBranch}") {
     logRotator(33, -1, -1, -1)
