@@ -251,7 +251,7 @@ jobWrappers {
             extensions: [[$class:'CloneOption',honorRefspec:true]],
             userRemoteConfigs: [[
               name: 'gerrit',
-              refspec: "+${GERRIT_REFSPEC}:refs/remotes/gerrit/patch +refs/heads/${VERSION}:refs/remotes/gerrit/target",
+              refspec: "+${GERRIT_REFSPEC}:refs/remotes/gerrit/patch +refs/heads/${VERSION=="AUTO"?GERRIT_BRANCH:VERSION}:refs/remotes/gerrit/target",
               url: 'ssh://ptest@gerrit.sjc.cloudera.com:29418/cdh/hive.git',
               credentialsId: 'gerrit-ptest'
             ]],
