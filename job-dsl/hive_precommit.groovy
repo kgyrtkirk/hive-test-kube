@@ -42,7 +42,7 @@ class RegEx {
                   inputBranches.each { b -> 
                     branch {
                       compareType((b instanceof RegEx) ? 'REG_EXP':'PLAIN')
-                      pattern(b)
+                      pattern(b.toString())
                     }
                   }
                 }
