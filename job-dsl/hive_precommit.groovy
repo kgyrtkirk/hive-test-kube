@@ -1,3 +1,13 @@
+class RegEx {
+  public String expr;
+  RegEx(String expr) {
+    this.expr=expr;
+  }
+  public String toString() {
+    return expr;
+  }
+}
+
 [
   'CDH-7.2.11.1':['CDH-7.2.11.1'],
   'CDH-7.2.12.0':['CDH-7.2.12.0'],
@@ -14,7 +24,7 @@
                   ],
   'CDWH-2021.0.5' : ['CDWH-2021.0.5'],
   'CDH-7.1.7.1000': ['CDH-7.1.7.1000'],
-  'AUTO': ['CDH-7.1.7.1030', 'CDH-7.1.7.48'],
+  'AUTO': ['CDH-7.1.7.1030', 'CDH-7.1.7.48',new RegEx("CDH-7\\.1\\.7\\..*")],
   'CDH-7.1.8.x': ['CDH-7.1.8.x'],
 ].each { baseBranch, inputBranches ->
   pipelineJob("internal-hive-precommit-${baseBranch}") {
@@ -31,7 +41,7 @@
                 branches {
                   inputBranches.each { b -> 
                     branch {
-                      compareType('PLAIN')
+                      compareType((b instanceof RegEx) ? 'REG_EXP':'PLAIN')
                       pattern(b)
                     }
                   }
