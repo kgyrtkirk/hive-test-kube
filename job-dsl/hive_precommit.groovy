@@ -56,6 +56,11 @@ class RegEx {
               // the person who built this dsl construct for gerrit events must have been braindead
               onNotBuilt(true); onSuccessful(false); onFailed(false); onUnstable(false); onAborted(false);
             }
+            triggerOnEvents {
+              patchsetCreated{
+                excludeNoCodeChange(true);
+              }
+            }
           }
         }
       }
