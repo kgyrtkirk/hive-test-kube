@@ -57,7 +57,9 @@ class RegEx {
               onNotBuilt(true); onSuccessful(false); onFailed(false); onUnstable(false); onAborted(false);
             }
             triggerOnEvents {
-              patchsetCreated()
+              patchsetCreated{
+                excludeNoCodeChange(true);
+              }
             }
           }
         }
