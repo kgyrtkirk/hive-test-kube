@@ -48,10 +48,10 @@ def executorNode(run) {
 
 // returns a map like: {tez: {user: "CDH", branch: "cdpd-master", component: "tez"}, hadoop: {user: "CDH", branch: "cdpd-master", component: "hadoop"}, ...}
 def parseCustomComponentsBuilds(description) {
-  if (!description?.trim()) {
-    return false
-  }
   def customComponents = [:]
+  if (!description?.trim()) {
+    return customComponents
+  }
   def supportedComponents = ["HADOOP", "TEZ", "ORC", "CALCITE"];
 
   for(String word : description.split(" ")){
@@ -241,7 +241,28 @@ jobWrappers {
   executorNode {
     container('hdb') {
       stage('Checkout') {
-        if( env.GERRIT_PATCHSET_REVISION != null ) {
+        if (env.IS_HEALTHCHECK){
+          println 'healthcheck'
+
+          checkout([
+            $class: 'GitSCM',
+            branches: [[name:"target"]],
+            extensions: [[$class:'CloneOption', honorRefspec:true]],
+            userRemoteConfigs: [[
+              name: 'gerrit',
+              refspec: "+refs/heads/${VERSION}:refs/remotes/gerrit/target",
+              url: 'ssh://ptest@gerrit.sjc.cloudera.com:29418/cdh/hive.git',
+              credentialsId: 'gerrit-ptest'
+            ]],
+          ])
+
+          sh '''#!/bin/bash -e
+echo "@ prepare branch"
+git config user.email "you@example.com"
+git config user.name "Your Name"
+git status
+'''
+        } else if ( env.GERRIT_PATCHSET_REVISION != null ) {
           println "@gerrit patchset"
 
           checkout([
