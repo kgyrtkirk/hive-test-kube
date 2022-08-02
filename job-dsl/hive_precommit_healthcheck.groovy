@@ -3,15 +3,22 @@
 ].each { branch ->
   pipelineJob("internal-hive-precommit-${branch}-healthcheck") {
     logRotator(33, -1, -1, -1)
-    triggers {
-      cron('@daily')
+    properties {
+        pipelineTriggers {
+            triggers {
+                cron {
+                    spec('@daily')
+                }
+            }
+        }
     }
     parameters {
       stringParam('SPLIT', '20', 'Number of buckets to split tests into.')
-      stringParam('OPTS', '-q', 'additional maven opts')
-      stringParam('VERSION', branch, 'the version to be used (e.g. by cdpd-patcher)')
+      stringParam('OPTS', '-q', 'Additional maven opts')
+      stringParam('VERSION', branch, 'The version to be used (e.g. by cdpd-patcher)')
       stringParam('GERRIT_CHANGE_SUBJECT', '')
       booleanParam('IS_HEALTHCHECK', true)
+      stringParam('SLACK_CHANNEL', '', 'Slack channel (without "#") to alert from healthcheck jobs, defaults to global settings')
     }
     definition {
       cps {

@@ -46,6 +46,23 @@ def executorNode(run) {
   }
 }
 
+def notifyBuild(buildStatus) {
+  if (env.IS_HEALTHCHECK) {
+    // build status of null means successful
+    buildStatus = buildStatus ?: 'SUCCESS'
+
+    if (buildStatus != 'SUCCESS'){
+      println("Healthcheck job is about to report build status: ${buildStatus}")
+      def message = "Healthcheck job finished with status: ${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+      if (env.SLACK_CHANNEL?.trim()) {
+        slackSend (color: '#000000', message: message, channel: env.SLACK_CHANNEL)
+      } else {
+        slackSend (color: '#000000', message: message)
+      }
+    }
+  }
+}
+
 // returns a map like: {tez: {user: "CDH", branch: "cdpd-master", component: "tez"}, hadoop: {user: "CDH", branch: "cdpd-master", component: "hadoop"}, ...}
 def parseCustomComponentsBuilds(description) {
   def customComponents = [:]
@@ -241,7 +258,7 @@ jobWrappers {
   executorNode {
     container('hdb') {
       stage('Checkout') {
-        if (env.IS_HEALTHCHECK){
+        if (env.IS_HEALTHCHECK) {
           println 'healthcheck'
 
           checkout([
@@ -432,5 +449,7 @@ reinit_metastore $dbType
         archiveArtifacts artifacts: "**/test-results.tgz"
       }
     }
+
+    notifyBuild(currentBuild.result)
   }
 }
