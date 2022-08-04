@@ -417,8 +417,14 @@ reinit_metastore $dbType
               """
             } finally {
               def fn="${splitName}.tgz"
-              sh """#!/bin/bash -e
-              tar -czf ${fn} --files-from  <(find . -path '*/surefire-reports/*')"""
+              if (env.IS_HEALTHCHECK && currentBuild.currentResult != 'SUCCESS') {
+                println("Including hive.log files into build artifacts as build status is ${currentBuild.currentResult}")
+                sh """#!/bin/bash -e
+                tar -czf ${fn} --files-from  <(find . -name 'hive.log' -o -path '*/surefire-reports/*')"""
+              } else {
+                sh """#!/bin/bash -e
+                tar -czf ${fn} --files-from  <(find . -path '*/surefire-reports/*')"""
+              }
               saveFile(fn)
               junit '**/TEST-*.xml'
             }

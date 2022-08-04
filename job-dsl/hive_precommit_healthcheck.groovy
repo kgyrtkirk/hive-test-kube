@@ -2,7 +2,10 @@
   'cdw-master',
 ].each { branch ->
   pipelineJob("internal-hive-precommit-${branch}-healthcheck") {
-    logRotator(33, -1, -1, -1)
+    logRotator{
+      daysToKeep(15)
+      artifactDaysToKeep(15)
+    }
     properties {
         pipelineTriggers {
             triggers {
