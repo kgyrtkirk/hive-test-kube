@@ -410,11 +410,17 @@ reinit_metastore $dbType
           stage('PostProcess') {
             try {
               sh """#!/bin/bash -e
+                FAILED_FILES=`find . -name "TEST*xml" -exec grep -l "<failure" {} \\; 2>/dev/null | head -n 10` 
+                for a in \$FAILED_FILES
+                do  
+                  RENAME_TMP=`echo \$a | sed s/TEST-//g`
+                  mv \${RENAME_TMP/.xml/-output.txt} \${RENAME_TMP/.xml/-output-save.txt}
+                done
                 # removes all stdout and err for passed tests
                 xmlstarlet ed -L -d 'testsuite/testcase/system-out[count(../failure)=0]' -d 'testsuite/testcase/system-err[count(../failure)=0]' `find . -name 'TEST*xml' -path '*/surefire-reports/*'`
                 # remove all output.txt files
-                find . -name '*output.txt' -path '*/surefire-reports/*' -exec unlink "{}" \\;
-              """
+                find . -name '*output.txt' -path '*/surefire-reports/*' -exec unlink "{}" \\; 
+              """ 
             } finally {
               def fn="${splitName}.tgz"
               if (env.IS_HEALTHCHECK && currentBuild.currentResult != 'SUCCESS') {
