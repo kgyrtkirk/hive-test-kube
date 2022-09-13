@@ -350,7 +350,6 @@ cdpd-patcher hive $VERSION
 
         buildHive("install -Dtest=TestParseDriver#nonExistent","retry 3")
         buildHive("org.apache.maven.plugins:maven-dependency-plugin:get -Dartifact=org.apache.maven.plugins:maven-antrun-plugin:1.8","retry 3")
-
       }
 
       stage('Upload') {
