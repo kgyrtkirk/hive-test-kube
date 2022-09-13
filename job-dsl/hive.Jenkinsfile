@@ -350,7 +350,6 @@ cdpd-patcher hive $VERSION
 
         buildHive("install -Dtest=TestParseDriver#nonExistent","retry 3")
         buildHive("org.apache.maven.plugins:maven-dependency-plugin:get -Dartifact=org.apache.maven.plugins:maven-antrun-plugin:1.8","retry 3")
-        
       }
 
       stage('Upload') {
@@ -410,6 +409,12 @@ reinit_metastore $dbType
           stage('PostProcess') {
             try {
               sh """#!/bin/bash -e
+                FAILED_FILES=`find . -name "TEST*xml" -exec grep -l "<failure" {} \\; 2>/dev/null | head -n 10`
+                for a in \$FAILED_FILES
+                do
+                  RENAME_TMP=`echo \$a | sed s/TEST-//g`
+                  mv \${RENAME_TMP/.xml/-output.txt} \${RENAME_TMP/.xml/-output-save.txt}
+                done
                 # removes all stdout and err for passed tests
                 xmlstarlet ed -L -d 'testsuite/testcase/system-out[count(../failure)=0]' -d 'testsuite/testcase/system-err[count(../failure)=0]' `find . -name 'TEST*xml' -path '*/surefire-reports/*'`
                 # remove all output.txt files
