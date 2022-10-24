@@ -69,7 +69,7 @@ def parseCustomComponentsBuilds(description) {
   if (!description?.trim()) {
     return customComponents
   }
-  def supportedComponents = ["HADOOP", "TEZ", "ORC", "CALCITE"];
+  def supportedComponents = ["HADOOP", "TEZ", "ORC", "PARQUET", "CALCITE"];
 
   for(String word : description.split(" ")){
     if (word.startsWith("BUILD_CUSTOM_")){
@@ -344,6 +344,9 @@ cdpd-patcher hive $VERSION
 
         println ("Attempting to build orc: ")
         buildCustomComponent(customComponentBuilds.get("orc"), "", "java")
+
+        println ("Attempting to build parquet: ")
+        buildCustomComponent(customComponentBuilds.get("parquet"), "")
 
         println ("Attempting to build calcite: ")
         buildCustomComponent(customComponentBuilds.get("calcite"), "")
