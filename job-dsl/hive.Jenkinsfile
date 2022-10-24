@@ -69,7 +69,7 @@ def parseCustomComponentsBuilds(description) {
   if (!description?.trim()) {
     return customComponents
   }
-  def supportedComponents = ["HADOOP", "TEZ", "ORC", "CALCITE"];
+  def supportedComponents = ["HADOOP", "TEZ", "ORC", "PARQUET", "CALCITE"];
 
   for(String word : description.split(" ")){
     if (word.startsWith("BUILD_CUSTOM_")){
@@ -344,6 +344,10 @@ cdpd-patcher hive $VERSION
 
         println ("Attempting to build orc: ")
         buildCustomComponent(customComponentBuilds.get("orc"), "", "java")
+
+        println ("Attempting to build parquet: ")
+        //skipping modules that depend on thrift now, fix later
+        buildCustomComponent(customComponentBuilds.get("parquet"), "-pl '!parquet-format-structures' -pl '!parquet-thrift' -pl '!parquet-cascading' -pl '!parquet-cascading3' -Dpig.version=0.16.0")
 
         println ("Attempting to build calcite: ")
         buildCustomComponent(customComponentBuilds.get("calcite"), "")
