@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: artifactory
+  namespace: hive-test-kube
+spec:
+  tls:
+    - hosts:
+      - artifactory.apps.kc-04-ocp4.cloudera.com
+      secretName: htk-tls-secret
+  ingressClassName: nginx
+  rules:
+    - host: artifactory.apps.kc-04-ocp4.cloudera.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: artifactory
+              port:
+                number: 80
