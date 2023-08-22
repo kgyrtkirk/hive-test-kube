@@ -1,14 +1,14 @@
 FROM jenkins/jenkins:lts
 
-#RUN /usr/local/bin/install-plugins.sh github-api:1.111
-RUN /usr/local/bin/install-plugins.sh git ansicolor github build-name-setter timestamper kubernetes
+#RUN jenkins-plugin-cli --plugins  github-api:1.111
+RUN jenkins-plugin-cli --plugins git ansicolor github build-name-setter timestamper kubernetes
 # some issue with service; 
-RUN /usr/local/bin/install-plugins.sh maven-plugin:3.4
-RUN /usr/local/bin/install-plugins.sh parallel-test-executor
-RUN /usr/local/bin/install-plugins.sh junit-realtime-test-reporter blueocean
-RUN /usr/local/bin/install-plugins.sh build-timeout config-file-provider rebuild junit copyartifact 
-RUN /usr/local/bin/install-plugins.sh metrics
-RUN /usr/local/bin/install-plugins.sh antisamy-markup-formatter slack github-oauth throttle-concurrents lockable-resources pipeline-github envinject build-environment schedule-build matrix-auth
+RUN jenkins-plugin-cli --plugins maven-plugin
+RUN jenkins-plugin-cli --plugins parallel-test-executor
+RUN jenkins-plugin-cli --plugins junit-realtime-test-reporter blueocean
+RUN jenkins-plugin-cli --plugins build-timeout config-file-provider rebuild junit copyartifact 
+RUN jenkins-plugin-cli --plugins metrics
+RUN jenkins-plugin-cli --plugins antisamy-markup-formatter slack github-oauth throttle-concurrents lockable-resources pipeline-github envinject build-environment schedule-build matrix-auth
 USER root
 RUN apt-get update && apt-get install -y nano curl nmap make git less && apt-get clean
 #USER root

@@ -5,11 +5,11 @@ if [ ! -s /var/jenkins_home/config.xml ];then
 	cp -r /var/jenkins_home_default/./ /var/jenkins_home/
 fi
 export JAVA_OPTS+=" -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=180"
-export JAVA_OPTS+=" -Xloggc:$JENKINS_HOME/gc-%t.log -XX:NumberOfGCLogFiles=5 -XX:+UseGCLogFileRotation -XX:GCLogFileSize=20m -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintReferenceGC -XX:+PrintAdaptiveSizePolicy"
+export JAVA_OPTS+=" -Xlog:gc:$JENKINS_HOME/gc-%t.log -Xlog:gc* -Xlog:gc+heap=trace -Xlog:age*=debug -Xlog:ref*=trace -Xlog:ergo*=trace"
 export JAVA_OPTS+=" -server -Xms4g -Xmx8g"
 
 if [ "$1" == "" ];then
-	exec /sbin/tini -- /usr/local/bin/jenkins.sh
+	exec /usr/bin/tini -- /usr/local/bin/jenkins.sh
 else
 	exec "$@"
 fi
