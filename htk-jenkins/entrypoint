@@ -5,7 +5,7 @@ if [ ! -s /var/jenkins_home/config.xml ];then
 	cp -r /var/jenkins_home_default/./ /var/jenkins_home/
 fi
 export JAVA_OPTS+=" -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.ContainerExecDecorator.websocketConnectionTimeout=180"
-export JAVA_OPTS+=" -Xlog:gc:$JENKINS_HOME/gc-%t.log -Xlog:gc* -Xlog:gc+heap=trace -Xlog:age*=debug -Xlog:ref*=trace -Xlog:ergo*=trace"
+export JAVA_OPTS+=" -Xlog:gc*,safepoint:$JENKINS_HOME/gc-%t.log:time,uptime:filecount=5,filesize=20M"
 export JAVA_OPTS+=" -server -Xms4g -Xmx8g"
 
 if [ "$1" == "" ];then
