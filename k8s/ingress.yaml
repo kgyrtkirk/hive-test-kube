@@ -4,6 +4,7 @@ metadata:
   name: htk-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "hive-test-kube-ip"
+    networking.gke.io/managed-certificates: managed-cert
 spec:
   backend:
     serviceName: jenkins
